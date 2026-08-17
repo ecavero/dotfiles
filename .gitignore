@@ -1,0 +1,15 @@
+# Secrets (contains sensitive data)
+secrets/.secrets
+
+# Vim
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
