@@ -26,10 +26,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-BITCOIN="/home/ecavero/bitcoin-30.2/bin/"
+BITCOIN="/home/ecavero/bitcoin-31.1/bin/"
 PATH="$BITCOIN:$PATH"
 
-ECLAIR="/home/ecavero/eclair-node-0.13.1-f451ec0/bin"
+ECLAIR="/home/ecavero/eclair-node-0.14.1-d769db0/bin"
 PATH="$ECLAIR:$PATH"
 
 
