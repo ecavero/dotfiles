@@ -58,6 +58,7 @@ syntax on
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore bin -g ""'
 
 autocmd BufNewFile,BufRead *.fxml set filetype=xml
+autocmd BufNewFile,BufRead *.sc set filetype=scala
 
 nnoremap <leader>q :call RunSQLParagraphBuffer()<CR>
 
@@ -181,8 +182,10 @@ if executable('metals')
         \ 'name': 'metals',
         \ 'cmd': ['metals'],
         \ 'root_uri': {'root': lsp#utils#path_to_uri(expand('%:p:h'))},
+        \ 'whitelist': ['scala'],
         \ 'capabilities': {},
         \ })
+    let g:lsp_settings = {'metals': {'whitelist': ['scala']}}
 endif
 
 "LSP config from https://youtu.be/9HqgUo7kduk
@@ -229,3 +232,34 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+
+" ============================================================================
+" Worksheet Scala (<leader>r): ejecuta el archivo con scala-cli y muestra
+" la salida en un buffer debajo del actual.
+" ============================================================================
+
+function! RunScalaWorksheet() abort
+    let l:lines = getline(1, '$')
+    let l:tmpfile = tempname() . ".sc"
+    call writefile(l:lines, l:tmpfile)
+    let l:script = 'FILE=' . shellescape(l:tmpfile)
+        \ . ' && DEPS=$(grep "^//> using dep " "$FILE" | sed "s|//> using dep |--dep |" | tr "\n" " ")'
+        \ . ' && CODE=$(sed "/^\/\/> using /d" "$FILE")'
+        \ . ' && scala-cli repl $DEPS -O --repl-init-script -O "$CODE" -O --repl-quit-after-init 2>&1'
+    let l:raw = system(l:script)
+    call delete(l:tmpfile)
+    let l:clean = substitute(l:raw, '\e\[[0-9;]*m', '', 'g')
+    let l:filtered = filter(split(l:clean, "\n"), 'v:val != ""')
+    if empty(l:filtered)
+        echo "No se obtuvo salida."
+        return
+    endif
+    belowright new
+    setlocal buftype=nofile
+    call setline(1, l:filtered)
+endfunction
+
+augroup scala_worksheet
+    autocmd!
+    autocmd BufRead,BufNewFile *.sc nnoremap <buffer> <silent> <leader>r :call RunScalaWorksheet()<CR>
+augroup END
