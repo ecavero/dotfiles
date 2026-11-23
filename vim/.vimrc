@@ -26,6 +26,7 @@ Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 Plugin 'hashivim/vim-terraform'
 Plugin 'jidn/vim-dbml'
 Plugin 'keith/swift.vim'
+Plugin 'vimwiki/vimwiki'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -263,3 +264,23 @@ augroup scala_worksheet
     autocmd!
     autocmd BufRead,BufNewFile *.sc nnoremap <buffer> <silent> <leader>r :call RunScalaWorksheet()<CR>
 augroup END
+
+" ============================================================================
+" Vimwiki
+" ============================================================================
+let g:vimwiki_list = [{
+    \ 'path': '~/curso-bitcoin/carrera/wiki/',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md',
+    \ 'auto_diary_index': 1,
+    \ 'diary_rel_path': 'diario/',
+    \ }]
+
+let g:vimwiki_table_mappings = 0
+let g:vimwiki_global_ext = 0
+
+" Atajos
+nnoremap <leader>ww :VimwikiIndex<CR>
+nnoremap <leader>w<leader>i :VimwikiGenerateLinks<CR>
+nnoremap <leader>w<leader>d :VimwikiMakeDiaryNote<CR>
+nnoremap <leader>w<leader>D :VimwikiDiaryIndex<CR>
