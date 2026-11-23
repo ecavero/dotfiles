@@ -206,9 +206,5 @@ exec --no-startup-id feh --bg-fill /home/ecavero/Pictures/1024_2000.jpg
 exec rclone mount onedrive: ~/OneDrive --vfs-cache-mode full
 exec rclone mount GoogleDrive: ~/GoogleDrive --vfs-cache-mode full
 
-for_window [instance="anydesk"] floating enable
-for_window [class="AnyDesk"] floating enable
-
-bindsym $mod+Shift+a exec --no-startup-id "pkill -9 anydesk; sh -c 'anydesk --main & sleep 1.5'"
-
 bindsym $mod+Shift+x exec "loginctl lock-session && dbus-send --system --type=method_call --dest=org.freedesktop.DisplayManager /org/freedesktop/DisplayManager/Seat0 org.freedesktop.DisplayManager.Seat.SwitchToGreeter"
+
