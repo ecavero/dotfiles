@@ -29,11 +29,11 @@ fi
 BITCOIN="/home/ecavero/bitcoin-31.1/bin/"
 PATH="$BITCOIN:$PATH"
 
-ECLAIR="/home/ecavero/eclair-node-0.14.1-d769db0/bin"
+ECLAIR="/home/ecavero/eclair-node-0.14.5-01384e9/bin"
 PATH="$ECLAIR:$PATH"
 
 
-FLYWAY="/home/ecavero/flyway-11.4.0"
+FLYWAY="/home/ecavero/flyway-13.13.0"
 PATH="$FLYWAY:$PATH"
 
 SQLLINE="/home/ecavero/sqlline-sqlline-1.12.0/bin"
