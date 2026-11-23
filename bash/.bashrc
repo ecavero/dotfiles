@@ -129,7 +129,7 @@ export PATH="$PATH:/home/ecavero/.local/bin"
 
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
-export ECLAIR_API=http://0.0.0.0:10009
+export ECLAIR_API=http://127.0.0.1:10009
 
 export PATH="$PATH:/home/ecavero/.local/share/coursier/bin"
 
