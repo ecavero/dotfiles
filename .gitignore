@@ -13,3 +13,6 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# Runbook en claro (nunca commitear)
+runbooks/ecavero-space.md
