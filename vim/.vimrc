@@ -65,9 +65,9 @@ nnoremap <leader>q :call RunSQLParagraphBuffer()<CR>
 
 function! RunSQLParagraphBuffer()
     " Definir las variables para la conexión
-    let l:url = 'jdbc:mysql://localhost:3306/smartworkspaces'
-    let l:usuario = 'root'
-    let l:clave = 'root'
+    let l:url = 'jdbc:sqlite:/home/ecavero/lightning-card/lightningcard/data/lightningcard.db'
+    let l:usuario = ''
+    let l:clave = ''
 
     " Obtener el párrafo alrededor del cursor
     let l:start = search('\v^\s*$', 'bnW') + 1
@@ -82,7 +82,7 @@ function! RunSQLParagraphBuffer()
     call writefile(l:lines, l:tmpfile)
 
     " Ejecutar el comando SQL y formatear la salida mientras se mantienen los encabezados
-    let l:raw_output = system("sqlline -u " . l:url . " -n " . l:usuario . " -p " . l:clave . " --silent --outputformat=tsv -f " . shellescape(l:tmpfile) . " | tr -d '\"' | column -t -s $'\t' -o '|'")
+    let l:raw_output = system("sqlline" . " -u " . shellescape(l:url) . " -n " . shellescape(l:usuario) ." -p ". shellescape(l:clave) ." --silent --outputformat=tsv -f " . shellescape(l:tmpfile) . " | tr -d '\"' | column -t -s $'\t' -o '|'")
     call delete(l:tmpfile)  " Limpiar el archivo temporal
 
     " Filtrar la salida innecesaria pero MANTENER la primera línea (encabezados)
